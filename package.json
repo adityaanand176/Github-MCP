@@ -1,0 +1,16 @@
+{
+  "name": "github-mcp-test2",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@octokit/core": "^7.0.2",
+    "dotenv": "^16.5.0"
+  }
+}
