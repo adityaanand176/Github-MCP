@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { getUserInfo, createCommit, listFollowing, createBranch, listRepos, getRepo, listBranches, getBranch, getFile, listRepoContents } from "./functions.js";
+import { getUserInfo, createCommit, listFollowing, createBranch, listRepos, getRepo, listBranches, getBranch, getFile, listRepoContents, compareBranches, deleteFile, updateFile, getLatestCommit } from "./functions.js";
 import 'dotenv/config';
 
 
@@ -122,6 +122,52 @@ server.tool("list-repo-contents", {owner: z.string(), repo: z.string(), path: z.
 {title: "Lists the contents of a GitHub repository"},
 async ({owner, repo, path, branch}: {owner: string, repo: string, path: string, branch: string}) => {
     const data = await listRepoContents(owner, repo, path, branch);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("compare-branches", {owner: z.string(), repo: z.string(), base: z.string(), head: z.string()},
+{title: "Compares two branches in a GitHub repository"},
+async ({owner, repo, base, head}: {owner: string, repo: string, base: string, head: string}) => {
+    const data = await compareBranches(owner, repo, base, head);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("delete-file", {owner: z.string(), repo: z.string(), path: z.string(), sha: z.string(), branch: z.string()},
+
+{title: "Deletes a file from a GitHub repository"},
+async ({owner, repo, path, sha, branch}: {owner: string, repo: string, path: string, sha: string, branch: string}) => {
+    const data = await deleteFile(owner, repo, path, sha, branch);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("update-file", {owner: z.string(), repo: z.string(), path: z.string(), content: z.string(), sha: z.string(), branch: z.string()},
+{title: "Updates a file in a GitHub repository"},
+async ({owner, repo, path, content, sha, branch}: {owner: string, repo: string, path: string, content: string, sha: string, branch: string}) => {
+    const data = await updateFile(owner, repo, path, content, sha, branch);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("get-branch", {owner: z.string(), repo: z.string(), branch: z.string()},
+{title: "Gets a branch from a GitHub repository"},
+async ({owner, repo, branch}: {owner: string, repo: string, branch: string}) => {
+    const data = await getBranch(owner, repo, branch);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("get-latest-commit", {owner: z.string(), repo: z.string(), branch: z.string()},
+{title: "Gets the latest commit from a GitHub repository"},
+async ({owner, repo, branch}: {owner: string, repo: string, branch: string}) => {
+    const data = await getLatestCommit(owner, repo, branch);
     return {
         content: [{ type: "text", text: JSON.stringify(data) }]
     };

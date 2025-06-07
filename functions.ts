@@ -111,6 +111,46 @@ export async function createBranch({owner,repo,branch,from_branch}:
   }
 }
 
+export async function updateFile(owner: string, repo: string, path: string, content: string, sha: string, branch = "main", message = "Update file") {
+  const response = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+    owner,
+    repo,
+    path,
+    message,
+    content: Buffer.from(content).toString("base64"),
+    sha,
+    branch,
+  });
+  return response.data;
+}
+
+export async function deleteFile(owner: string, repo: string, path: string, sha: string, branch = "main", message = "Delete file") {
+  const response = await octokit.request('DELETE /repos/{owner}/{repo}/contents/{path}', {
+    owner,
+    repo,
+    path,
+    message,
+    sha,
+    branch,
+  });
+  return response.data;
+}
+
+export async function compareBranches(owner: string, repo: string, base: string, head: string) {
+  const response = await octokit.request('GET /repos/{owner}/{repo}/compare/{base}...{head}', {
+    owner,
+    repo,
+    base,
+    head,
+  });
+  return {
+    ahead_by: response.data.ahead_by,
+    behind_by: response.data.behind_by,
+    files: response.data.files,
+  };
+}
+
+
 
 export async function getFile(owner: string, repo: string, path: string, branch: string = "main") {
   try {
