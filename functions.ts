@@ -224,6 +224,28 @@ export async function getLatestCommit(owner: string, repo: string, branch: strin
   }
 }
 
+export async function getPullRequests(owner: string, repo: string, state: "all" | "open" | "closed" = "open") {
+  const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+    owner,
+    repo,
+    state,
+  });
+  return response.data;
+}
+
+export async function createPullRequest(owner: string, repo: string, head: string, base: string, title: string, body = "") {
+  const response = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+    owner,
+    repo,
+    head,
+    base,
+    title,
+    body,
+  });
+
+  return response.data;
+}
+
 //this is just for testing purposes.
 // listFollowing().catch(error => {
 //   console.error('Failed to list following:', error);

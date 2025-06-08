@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { getUserInfo, createCommit, listFollowing, createBranch, listRepos, getRepo, listBranches, getBranch, getFile, listRepoContents, compareBranches, deleteFile, updateFile, getLatestCommit } from "./functions.js";
+import { getUserInfo, createCommit, listFollowing, createBranch, listRepos, getRepo, listBranches, getBranch, getFile, listRepoContents, compareBranches, deleteFile, updateFile, getLatestCommit, getPullRequests, createPullRequest } from "./functions.js";
 import 'dotenv/config';
 
 
@@ -173,6 +173,24 @@ async ({owner, repo, branch}: {owner: string, repo: string, branch: string}) => 
     };
 });
 
+server.tool("get-pull-requests", {owner: z.string(), repo: z.string(), state: z.enum(["all", "open", "closed"]).optional()},
+{title: "Gets the pull requests for a GitHub repository"},
+async ({owner, repo, state}: {owner: string, repo: string, state?: "all" | "open" | "closed"}) => {
+    const data = await getPullRequests(owner, repo, state);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
+
+server.tool("create-pull-request", {owner: z.string(), repo: z.string(), head: z.string(), base: z.string(), title: z.string(), body: z.string().optional()},
+
+{title: "Creates a pull request for a GitHub repository"},
+async ({owner, repo, head, base, title, body}: {owner: string, repo: string, head: string, base: string, title: string, body?: string}) => {
+    const data = await createPullRequest(owner, repo, head, base, title, body);
+    return {
+        content: [{ type: "text", text: JSON.stringify(data) }]
+    };
+});
 
 const transport = new StdioServerTransport();
 server.connect(transport);
