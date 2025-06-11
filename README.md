@@ -52,7 +52,13 @@ Start the MCP server(Claude):
 bun index.ts
 ```
 
-2. Add the mcp server to claude_desktop_config.json(currently only claude desktop supports mcp capabilities)
+2. For command you may have to provide the directory of your bun. 
+
+```bash
+which bun
+```
+
+3. Add the mcp server to claude_desktop_config.json(currently only claude desktop supports mcp capabilities)
 ```bash
 {
   "mcpServers": {
