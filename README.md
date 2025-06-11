@@ -1,4 +1,4 @@
-# GitHub MCP Server
+# GitHub MCP Server 🚀
 
 A Model Context Protocol (MCP) server implementation that provides a set of tools for interacting with GitHub repositories programmatically.
 
