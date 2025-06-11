@@ -45,10 +45,23 @@ GITHUB_TOKEN=your_token_here
 
 ## Usage
 
-Start the MCP server:
+Start the MCP server(Claude):
 
+1. Install Bun
 ```bash
 bun index.ts
+```
+
+2. Add the mcp server to claude_desktop_config.json(currently only claude desktop supports mcp capabilities)
+```bash
+{
+  "mcpServers": {
+    "Github-MCP": {
+      "command": "/Users/<user>>/.bun/bin/bun",
+      "args": ["index.ts"]
+    }
+  }
+}
 ```
 
 ### Available Tools
