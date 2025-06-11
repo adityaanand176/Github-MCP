@@ -195,6 +195,8 @@ You can also use this MCP server with GitHub Copilot by configuring it in your d
 
 This project uses Bun as the runtime environment. Make sure you have Bun installed before running the project.
 
+[![MCP Server Video Showcase](https://img.youtube.com/vi/OCV6EJF0rJ8/0.jpg)](https://youtu.be/OCV6EJF0rJ8)
+
 ## License
 
 MIT
