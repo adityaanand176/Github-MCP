@@ -70,6 +70,26 @@ which bun
 }
 ```
 
+### GitHub Copilot
+
+You can also use this MCP server with GitHub Copilot by configuring it in your development environment:
+
+1. Install the GitHub Copilot extension in VS Code
+2. Configure the MCP server in your workspace settings or global settings:
+```json
+{
+  "github.copilot.mcp.servers": {
+    "Github-MCP": {
+      "command": "/Users/<user>/.bun/bin/bun",
+      "args": ["index.ts"],
+      "cwd": "/path/to/your/Github-MCP"
+    }
+  }
+}
+```
+
+3. Restart VS Code and GitHub Copilot will have access to the GitHub MCP tools
+
 ### Available Tools
 
 1. `get-user-info`
