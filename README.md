@@ -78,16 +78,16 @@ You can also use this MCP server with GitHub Copilot by configuring it in your d
 2. Configure the MCP server in your workspace settings or global settings:
 ```json
 "mcp": {
-        "servers": {
-            "github-mcp-test2": {
-                "command": "/Users/<user>/.bun/bin/bun",
-                "args": ["/path/to/your/Github-MCP/index.ts"],  
-                "env": {
-                    "GITHUB_TOKEN": "YOUR_PERSONAL_ACCOUNT_TOKEN"
-                }, 
-            }
-        }
+  "servers": {
+    "github-mcp-test2": {
+      "command": "/Users/<user>/.bun/bin/bun",
+      "args": ["/path/to/your/Github-MCP/index.ts"],  
+      "env": {
+        "GITHUB_TOKEN": "YOUR_PERSONAL_ACCOUNT_TOKEN"
+        }, 
     }
+  }
+}
 ```
 
 3. Restart VS Code and GitHub Copilot will have access to the GitHub MCP tools
