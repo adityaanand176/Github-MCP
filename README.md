@@ -59,7 +59,7 @@ which bun
 ```
 
 3. Add the mcp server to claude_desktop_config.json(currently only claude desktop supports mcp capabilities)
-```bash
+```json
 {
   "mcpServers": {
     "Github-MCP": {
@@ -77,15 +77,17 @@ You can also use this MCP server with GitHub Copilot by configuring it in your d
 1. Install the GitHub Copilot extension in VS Code
 2. Configure the MCP server in your workspace settings or global settings:
 ```json
-{
-  "github.copilot.mcp.servers": {
-    "Github-MCP": {
-      "command": "/Users/<user>/.bun/bin/bun",
-      "args": ["index.ts"],
-      "cwd": "/path/to/your/Github-MCP"
+"mcp": {
+        "servers": {
+            "github-mcp-test2": {
+                "command": "/Users/<user>/.bun/bin/bun",
+                "args": ["/path/to/your/Github-MCP/index.ts"],  
+                "env": {
+                    "GITHUB_TOKEN": "YOUR_PERSONAL_ACCOUNT_TOKEN"
+                }, 
+            }
+        }
     }
-  }
-}
 ```
 
 3. Restart VS Code and GitHub Copilot will have access to the GitHub MCP tools
