@@ -69,14 +69,6 @@ server.tool("list-following", "Lists the GitHub users you are following",
     }
 );
 
-server.tool("add",
-    { a: z.number(), b: z.number() },
-    { title: "Adds two numbers together"},
-    async ({ a, b }: { a: number, b: number }) => ({
-      content: [{ type: "text", text: String(a + b) }]
-    })
-);
-
 server.tool("make-a-commit",
     { message: z.string(), content: z.string(), path: z.string(), branch: z.string(), repo: z.string() },
     { title: "Commits a change to a GitHub repository"},
